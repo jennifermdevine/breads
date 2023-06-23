@@ -2,9 +2,9 @@ const React = require('react');
 
 const Default = require('./layout/default')
 
-function Index({breads}){
+function Index({breads, title}){
     return(
-        <Default>
+        <Default title={title}>
             <h2>Index Page</h2>
             <ul>
                 {
