@@ -20,7 +20,7 @@ breads.get('/:arrayIndex', (req, res) => {
         bread: Bread[req.params.arrayIndex]
     })
 }   else {
-    res.send('404')
+    res.send('404 - this bread page does not exist! <a href="/breads">go back</a>')
 }
 })
 
