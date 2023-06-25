@@ -1,15 +1,16 @@
 const express = require('express');
 const morgan = require('morgan');
 
-const app = express();
-
 require('dotenv').config();
 const PORT = process.env.PORT;
+
+const app = express();
 
 app.use(morgan('tiny'));
 
 // MIDDLEWARE
 
+app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jsx')
