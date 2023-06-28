@@ -23,7 +23,8 @@ breads.get('/new', (req, res) => {
 breads.get('/:arrayIndex', (req, res) => {
     if (Bread[req.params.arrayIndex]) {
         res.render('Show', {
-        bread: Bread[req.params.arrayIndex]
+        bread: Bread[req.params.arrayIndex],
+        index: req.params.arrayIndex,
     })
 }   else {
     res.send('404 - this bread page does not exist! <a href="/breads">go back</a>')
@@ -46,7 +47,12 @@ breads.post ('/', (req, res) => {
     res.redirect('/breads')
 })
 
+// DELETE
 
+breads.delete('/:indexArray', (req, res) => {
+    Bread.splice(req.params.indexArray, 1)
+    res.status(303).redirect('/breads')
+})
 
 
 module.exports = breads
