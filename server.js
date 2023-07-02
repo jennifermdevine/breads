@@ -1,10 +1,9 @@
 // DEPENDENCIES
 
-const mongoose = require('mongoose');
 const express = require('express');
 const morgan = require('morgan');
 const methodOverride = require('method-override')
-
+const mongoose = require('mongoose');
 
 require('dotenv').config();
 const PORT = process.env.PORT;
@@ -22,9 +21,18 @@ app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
 app.use(methodOverride ('_method'))
 
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true}, 
-    () => { console.log('connected to mongo: ', process.env.MONGO_URI) }
-)
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('Connected to MongoDB:', process.env.MONGO_URI)
+    // Continue with your application logic here
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB:', error)
+  })
 
 
 // ROUTES
