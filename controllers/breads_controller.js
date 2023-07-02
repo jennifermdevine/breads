@@ -34,15 +34,15 @@ breads.get('/:indexArray/edit', (req, res) => {
 
 breads.get('/:id', (req, res) => {
     Bread.findById(req.params.id)
-      .then(foundBread => {
-        res.render('show', {
-          bread: foundBread
+        .then(foundBread => {
+            res.render('show', {
+                bread: foundBread
         })
-      })
-      .catch(err => {
-        res.send('404')
-      })
-  })
+    })
+        .catch(err => {
+            res.send('404')
+        })
+})
 
 
 
@@ -52,7 +52,7 @@ breads.post ('/', (req, res) => {
     console.log(req.body)
     if (!req.body.image) {
         req.body.image = undefined
-      }
+    }
     if (req.body.hasGluten === 'on') {
         req.body.hasGluten = 'true'
     } else {
@@ -73,13 +73,13 @@ breads.delete('/:indexArray', (req, res) => {
 
 breads.put('/:arrayIndex', (req, res) => {
     if(req.body.hasGluten === 'on'){
-      req.body.hasGluten = true
+        req.body.hasGluten = true
     } else {
-      req.body.hasGluten = false
+        req.body.hasGluten = false
     }
     Bread[req.params.arrayIndex] = req.body
     res.redirect(`/breads/${req.params.arrayIndex}`)
-  })
-  
+})
+
 
 module.exports = breads
