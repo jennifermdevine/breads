@@ -25,7 +25,7 @@ function Edit ({bread, bakers}) {
               <select name="baker" id="baker" defaultValue={bread.baker}>
                   {bakers.map((baker) => {
                   return(
-                    <option value={baker.id} key={baker.id}>{baker.name}</option>
+                    <option value={baker.id} key={baker.id} defaultValue={bread.baker}>{baker.name}</option>
                   )
                 })}
               </select>
