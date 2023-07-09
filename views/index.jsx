@@ -16,7 +16,6 @@ function Index({breads, title}){
             {
             breads.length ? breads.map((bread, index) => {
                 const breadId = bread.id;
-
                 return (
                   <li key={index}>
                       <a href={`/breads/${breadId}`}>
@@ -26,7 +25,7 @@ function Index({breads, title}){
                         <li>{bread.getBakedBy()}</li>
                       </ul>
                   </li>
-                   )
+                  )
                 }
               ) : (<div>You're out of bread!!!!</div>)
             }

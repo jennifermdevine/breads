@@ -1,7 +1,7 @@
 const React = require('react')
 const Default = require('./layout/default')
 
-function New ({error}) {
+function New ({bakers}) {
     return (
     <Default>
         <h2>Add a new bread</h2>
@@ -20,12 +20,13 @@ function New ({error}) {
                 id="image"/>
             <label htmlFor="baker">Baker</label>
             <select name="baker" id="baker">
-                <option value="Rachel">Rachel</option>
-                <option value="Monica">Monica</option>
-                <option value="Joey">Joey</option>
-                <option value="Chandler">Chandler</option>
-                <option value="Ross">Ross</option>
-                <option value="Phoebe">Phoebe</option>
+                {bakers.map((baker) => {
+                    return(
+                        <option value={baker.id} key={baker.id}>
+                            {baker.name}
+                        </option>
+                    )
+                })}
             </select>
             <label htmlFor="hasGluten">Has Gluten?</label>
             <input
@@ -35,7 +36,6 @@ function New ({error}) {
                 defaultChecked
                 />
                 <br />
-                <div style={{color: 'red'}}>{error ? (<div>{error.errors.baker.message}</div>): null}</div>
                 <input type="submit"/>
         </form>
         <div className="backButton">

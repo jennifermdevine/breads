@@ -2,12 +2,14 @@ const express = require('express')
 const breads = express.Router()
 
 const Bread = require('../models/bread')
+const Baker = require('../models/baker')
 const seedData = require('../seeds')
 
 
 // INDEX /breads/
 breads.get('/', (req, res) => {
   Bread.find()
+      .populate('baker')
       .then(foundBreads => {
           res.render('index', {
               breads: foundBreads,
@@ -18,32 +20,31 @@ breads.get('/', (req, res) => {
 
   // NEW
   breads.get('/new', (req, res) => {
+    Baker.find()
+      .then(foundBakers => {
+          console.log(foundBakers)
+          res.render('New', {
+              bakers: foundBakers
+          })
+      })
     console.log('hello')
-    res.render('New')
 })
 
 
 // SHOW 
-breads.get('/:id', function(req, res) {
-    const id = req.params.id;
-    Bread.findById(id)
-    .then(foundBread => {
-      const bakersName = foundBread.baker;
-      Bread.findBakersOtherBreads(bakersName)
-      .then((bakersOtherBreads) => {
-        console.log({bakersOtherBreads})
-        res.render('Show', {
-          bread: foundBread,
-          bakersOtherBreads
+breads.get('/:id', (req, res) => {
+  Bread.findById(req.params.id)
+      .populate('baker')
+      .then(foundBread => {
+        res.render('show', {
+            bread: foundBread
         })
       })
-  
-    })
-    .catch((error) => {
-      console.log('Whoops error', error)
-      res.render('404')
-    }) 
+      .catch(err => {
+        res.send('404')
+      })
 })
+
 
 // CREATE
 breads.post('/', (req, res) => {
@@ -61,12 +62,8 @@ breads.post('/', (req, res) => {
   .then(() => {
     res.redirect('/breads')
   })
-  .catch(error => {
-      res.render('New', {
-        error
-      })
-  })
 })
+
 
 
 
@@ -101,13 +98,16 @@ breads.put('/:id', (req, res) => {
 
   // EDIT
 breads.get('/:id/edit', (req, res) => {
-
+  Baker.find()
+    .then(foundBakers => {
   Bread.findById(req.params.id)
   .then(foundBread => {
     res.render('edit', {
       bread: foundBread,
+      bakers: foundBakers
     })
   })
+})
 })
 
 // SEED ROUTE
