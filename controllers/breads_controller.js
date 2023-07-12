@@ -7,20 +7,18 @@ const seedData = require('../seeds')
 
 
 // INDEX /breads/
-breads.get('/', (req, res) => {
-  Baker.find()
-    .then(foundBakers => {
-  Bread.find()
-      .populate('baker')
-      .then(foundBreads => {
-          res.render('index', {
-              breads: foundBreads,
-              bakers: foundBakers,
-              title: 'Index Page'
-          })
-      })
-    })
+
+breads.get('/', async (req, res) => {
+  const foundBakers = await Baker.find().lean()
+  const foundBreads = await Bread.find().limit(4).lean()
+  console.log(foundBreads)
+  res.render('index', {
+    breads: foundBreads,
+    bakers: foundBakers,
+    title: 'Index Page'
+  })
 })
+
 
   // NEW
   breads.get('/new', (req, res) => {
