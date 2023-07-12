@@ -11,6 +11,9 @@ baker.get('/data/seed', (req, res) => {
     Baker.insertMany(bakerSeedData).then(() => {
       res.redirect('/breads')
     })
+    .catch(err => {
+      res.send('404')
+    })
   })
 
 // Index:
@@ -34,6 +37,16 @@ baker.get('/:id', (req, res) => {
       })
     })
 })
+
+// DELETE BUTTON
+
+baker.delete('/:id', (req, res) => {
+  Baker.findByIdAndDelete(req.params.id) 
+    .then(deletedBaker => { 
+      res.status(303).redirect('/breads')
+    })
+})
+
 
 // export
 module.exports = baker                    

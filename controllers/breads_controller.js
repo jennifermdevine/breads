@@ -68,10 +68,6 @@ breads.post('/', (req, res) => {
   })
 })
 
-
-
-
-
   // DELETE
 breads.delete('/:id', (req, res) => {
   // Bread.splice(req.params.indexArray, 1)
@@ -89,10 +85,7 @@ breads.put('/:id', (req, res) => {
   } else {
     req.body.hasGluten = false
   }
-  // Bread[req.params.arrayIndex] = req.body
-
   const id = req.params.id;
-
   Bread.findByIdAndUpdate(id,  req.body, {new: true})
   .then(foundBread => {
     res.redirect(`/breads/${id}`)
@@ -114,14 +107,6 @@ breads.get('/:id/edit', (req, res) => {
 })
 })
 
-// SEED ROUTE
-
-breads.get('/data/seed', (req, res) => {
-  Bread.insertMany(seedData).then(() => {
-    res.redirect('/breads')
-  })
-})
-
 breads.get('/data/updatefield', (req, res) => {
   Bread.updateMany({baker: {$exists: false}}, {baker: 'Rachel'})
   .then(() => {
@@ -129,9 +114,6 @@ breads.get('/data/updatefield', (req, res) => {
   })
 })
 
-
-
-  
 
 
 module.exports = breads
