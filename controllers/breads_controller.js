@@ -10,7 +10,7 @@ const seedData = require('../seeds')
 
 breads.get('/', async (req, res) => {
   const foundBakers = await Baker.find().lean()
-  const foundBreads = await Bread.find().limit(4).lean()
+  const foundBreads = await Bread.find().limit(5).lean().populate('baker')
   console.log(foundBreads)
   res.render('index', {
     breads: foundBreads,
@@ -25,7 +25,7 @@ breads.get('/', async (req, res) => {
     Baker.find()
       .then(foundBakers => {
           console.log(foundBakers)
-          res.render('New', {
+          res.render('new', {
               bakers: foundBakers
           })
       })

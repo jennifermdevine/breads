@@ -35,7 +35,7 @@ function Index({breads, bakers, title}){
                       {bread.name}
                       </a>
                       <ul>
-                        <li>{bread.getBakedBy()}</li>
+                        {/* <li>{bread.getBakedBy()}</li> */}
                       </ul>
                   </li>
                   )
